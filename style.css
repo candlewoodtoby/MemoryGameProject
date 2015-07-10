@@ -1,93 +1,39 @@
 .container {
-	border-style: solid;
 	border-color: red;
-	border-width: 2px;
-	/*margin-top: 100px;
-	margin-left: 100px;*/
+	border-style: solid;
+	border-width: 1px;
 }
 
-.title {
-	margin-top: 50px;
-	max-width: 750px;
-	margin-left: 150px;
-	height: 100px;
-}
-
-.scoreBoard {
-	max-width: 750px;
-	margin-left: 150px;
-	height: 100px;
-}
-
-
-
-.gameBoard {
-	margin-left: 150px;
-	max-width: 750px;
-
-}
-
-.controlPanel {
-	max-width: 750px;
-	margin-left: 150px;
-	width: 200px;
-}
 
 .row {
-	border-style: solid;
 	border-color: blue;
-	border-width: 2px;
-	min-width: 750px;
-	max-width: 750px;
-	/*margin: 5px;*/
-
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
 }
 
 .col-xs-1 {
-	border-style: solid;
 	border-color: orange;
-	border-width: 2px;
-	/*margin: 2px;*/
-	width: 120px;
-	height: 100px;
-}
-
-
-
-.col-xs-4 {
 	border-style: solid;
-	border-color: green;
-	border-width: 2px;
-	/*height: 200px;*/
+	border-width: 1px;
 }
 
-.commentBox {
-	height: 100px;
+.cell {
+	margin: 10px;
+	height: 70px;
+	width: 70px;
+	background-color: #83C3FF;
+	border-radius: 10px;
+	text-align: center;
 }
 
 .buttonsPlay {
-	width: 200px;
-	height: 180px;
-
+	border-color: orange;
+	border-style: solid;
+	border-width: 1px;
+	height: 100px;
+	padding-top: 30px;
 }
-
-.instructPlay {
-	width: 400px;
-	height: 180px;
-}
-
-
-.cell {
-	/*background-color: red;*/
-	margin: 2px;
-}
-
-
-
-
-
-
-
 
 
 
