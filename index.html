@@ -16,8 +16,8 @@
 	</div>
 	<div class="container scoreBoard">
 		<div class="row">
-			<div class="col-xs-1 pOneScore">Player 1 score:</div>
-			<div class="col-xs-1 pOneTurn">Player 1 turns:</div>
+			<div class="col-xs-2 pOneScore"><h5>Player 1 SCORE: <h3>0</h3></h5></div>
+			<div class="col-xs-2 pOneMisses"><h5>Player 1 MISSES: <h3>0</h3></h5></div>
 			<div class="col-xs-4 commentBox">Comment Box:</div>
 			<div class="col-xs-1 pTwoScore">Player 2 score:</div>
 			<div class="col-xs-1 pTwoTurn">Player 2 turns:</div>
@@ -26,7 +26,6 @@
 
 	<div class="container gameBoard">
 
-
 	</div> <!--end container gameboard -->
 
 	<div class="container controlPanel">
@@ -34,6 +33,9 @@
 			<div class="col-xs-4 buttonsPlay">
 				<form class="form" id="game-button">
 					<input type="submit" class="btn btn-primary" value="START GAME">
+				</form>
+				<form class="form" id="reset-button">
+					<input type="reset" value="Reset">
 				</form>
 			</div>
 			<div class="col-xs-4 col-xs-offset-2 instructPlay">How to Play</div>
