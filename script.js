@@ -4,8 +4,13 @@ $(function(){
 var tileValueArr = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F'];
 var tileLocArr = []; //collects location of click#1 & click#2 tiles
 var totalTilesFlipped = 0; // counts total tiles clicked per game;
+
+//Stores Player One Score and Misses
 var playerOneScore = 0;
 var playerOneMisses = 0;
+var playerOneMatch = 0;
+
+//Stores Player Two Score and Misses
 var playerTwoScore = 0;
 var playerTwoTurns = 0;
 
@@ -18,14 +23,14 @@ var playerTwoTurns = 0;
 
 //SHUFFLES ARRAY OF TILE VALUES
 var shuffle = function(taco) {
-	var currentIndex = taco.length;
-	var tempVal;
-	var randomIndex;
+	var currentIndex = taco.length; //stores # of elements in tileValueArr []
+	var tempVal; // temp stores index value #1 from array
+	var randomIndex; // stores random number generated
 
-	while (0 !== currentIndex) {
+	while (0 !== currentIndex) { //#loops not to exceed # elements in tileValueArr []
 		//generates random number
 		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
+		currentIndex -= 1; //counts # loops
 		//swap random number with current element
 		tempVal = taco[currentIndex];
 		taco[currentIndex] = taco[randomIndex];
@@ -39,11 +44,11 @@ var shuffle = function(taco) {
 
 //STARTS NEW BOARD 
 	var newBoard = function (taco) {
-		var createTileDiv = '';
+		var createTileDiv = ''; //creates empty string variable
 
 		shuffle(tileValueArr); // Shuffles Tile Val Array
 
-		//for loop creates tiles and displays to screen
+		//for loop creates tiles <div> and appends to html .gameboard container
 		for (var i=0; i < taco.length; i++){
 			createTileDiv += '<div id="cell_'+ i +'" data-tile-value=" '+tileValueArr[i]+' " class="col-xs-1 cell"></div>';
 		} $('.gameBoard').append(createTileDiv); 
@@ -64,16 +69,16 @@ var shuffle = function(taco) {
 
 			tilesFlipped++; // flip counter per turn
 
-					
+			// 2 tiles must be clicked + not all tiles flipped		
 			if ((tilesFlipped === 2) && (totalTilesFlipped < tileValueArr.length)) {
-				compareTile(flippedTileArr, tileLocArr);
+				compareTile(flippedTileArr, tileLocArr); //com
 				flippedTileArr = [];
 				tilesFlipped = 0;
 			}; 
 
+			// if all tiles clicked, ends game
 			if (totalTilesFlipped === tileValueArr.length) {
-				console.log('Game Done!');
-				gameDone();
+				gameDone(); //updates comment Box: Game is complete
 			};
 
 		}) // end ('.cell') event listener
@@ -85,33 +90,35 @@ var shuffle = function(taco) {
 	var compareTile = function (taco, taco2){
 		if (taco[0] === taco[1]) {
 			
-			yesMatch();//displays Match! on screen
+			yesMatch();//updates commentBox + displays Match! on screen
 
-			playerOneScore += 150;
+			playerOneScore += 150; //counter adds +150 points for every match
 
-			pOneScoreUpdate();
+			playerOneMatch += 1; //counter adds +1 for every
 
-			pOneMissesUpdate();
+			pOneScoreUpdate(); //calls function to update Score box
+
+			pOneMatchUpdate(); //calls function to update Match box
 
 			tileLocArr = []; //empties click#1 & click#2 array
 			
-			totalTilesFlipped +=2;  //increments counter
+			totalTilesFlipped +=2;  //increments total tile flipped counter
 
-		} else {
+		} else { //if no match occurs
 			
 			noMatch(); //displays No Match! on screen
 			
-			playerOneMisses += 1;
+			playerOneMisses += 1; //counter increments Miss 
 
-			playerOneScore -= 25;
+			playerOneScore -= 25; //dudects -25 penalty for each Miss
 
-			pOneScoreUpdate();
+			pOneScoreUpdate(); //calls function to update Score Box
 
-			pOneMissesUpdate();
+			pOneMissesUpdate(); //calls function to update Miss Box
 
 			setTimeout(function(){
-				resetTile(taco2);
-			}, 700); //blanks the non-matching Tiles on Screen
+				resetTile(taco2); //calls function to clear tile value if no match occurs
+			}, 700); //sets timer before function fires
 			
 			tileLocArr = []; //empties click#1 & click#2 array
 		};
@@ -125,40 +132,53 @@ var shuffle = function(taco) {
 
 
 // COMMENT BOX RESPONSES
+	
+	// updates Comment Box - Match!
 	var yesMatch = function() {
-		$('.commentBox').html('<h4>Match!</h4>'); //Displays Match! on Comment Board
+		$('.commentBox').html('Match +150 points'); //Displays Match! on Comment Board
 
 		setTimeout(function(){
 			$('.commentBox').html("")
-		}, 700); //Clears comment board after timed delay
+		}, 1500); //Clears comment board after timed delay
 
 	}; //end yesMatch function
 
+	// updates Comment Box - Miss!
 	var noMatch = function() {
-		$('.commentBox').html('<h4>No Match. Please Choose Again</h4>'); //Displays No Match! on Comment Board
-		
+		$('.commentBox').html('No Match<br/>-25 points'); //Displays No Match! on Comment Board
+	
 		setTimeout(function(){
 			$('.commentBox').html("")
-		}, 700); //Clears comment board after timed delay
+		}, 1500); //Clears comment board after timed delay
 
 	}; //end noMatch Function
 
+	// updates Comment Box - Game Done!
 	var gameDone = function() {
 
-		$('.commentBox').html('<h4>Nice Job! Game Complete!!</h4>');
+		$('.commentBox').html('Nice Job! Game Complete!!');
 		
 	}; //End gameDone function
 
+
 // Player Score Displays
 
+	// updates P1 Score Counter
 	var pOneScoreUpdate = function() {
-		$('.pOneScore').html('<h5>Player 1 Score: ' + '<h3>' + playerOneScore + '</h3></h5>');
+		$('.pOneScore').html('Score: <br/>'+ playerOneScore);
 	};
 
+	// updates P1 Miss Counter
 	var pOneMissesUpdate = function() {
-		$('.pOneMisses').html('<h5>Player 1 Misses: ' + '<h3>' + playerOneMisses + '</h3></h5>');
-		$('.commentBox').html('<h5>MISSED!! Lose 25 points!</h5>');
-	}
+		$('.pOneMiss').html('Miss: <br/>' + playerOneMisses); 
+		//displays playerOneMisses counter current reading
+	};
+
+	// updates P1 Match Counter
+	var pOneMatchUpdate = function() {
+		$('.pOneMatch').html('Match: <br/>' + playerOneMatch); 
+	}; //displays playerOneMatch counter current reading
+
 
 }); //end of main jquery function
 
