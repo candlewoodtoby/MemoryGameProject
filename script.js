@@ -44,15 +44,16 @@ var shuffle = function(taco) {
 
 //STARTS NEW BOARD 
 	var newBoard = function (taco) {
-		var createTileDiv = ''; //creates empty string variable
-
+		
 		shuffle(tileValueArr); // Shuffles Tile Val Array
 
-		//for loop creates tiles <div> and appends to html .gameboard container
-		for (var i=0; i < taco.length; i++){
-			createTileDiv += '<div id="cell_'+ i +'" data-tile-value=" '+tileValueArr[i]+' " class="col-xs-1 cell"></div>';
-		} $('.gameBoard').append(createTileDiv); 
+		createTile(taco);
 
+		listenTileClicks (taco);
+
+	}; //end newBoard function ()
+
+	var listenTileClicks = function (taco) {
 		var flippedTileArr = []; //collects data attribute for each tile clicked
 		var tilesFlipped = 0; // counts tiles clicked per player turn;
 		// var totalTilesFlipped = 0; // counts total tiles clicked per game;
@@ -83,7 +84,17 @@ var shuffle = function(taco) {
 
 		}) // end ('.cell') event listener
 
-	}; //end newBoard function ()
+	}; //ends listenTileClicks function
+
+//CREATE TILE DIV - display Tiles on Screen
+var createTile = function (taco) {
+		var createTileDiv = ''; //creates empty string variable
+
+		//for loop creates tiles <div> and appends to html .gameboard container
+		for (var i=0; i < taco.length; i++){
+			createTileDiv += '<div id="cell_'+ i +'" data-tile-value=" '+tileValueArr[i]+' " class="col-xs-1 cell"></div>';
+		} $('.gameBoard').append(createTileDiv); 
+} //end createTile function
 
 
 //COMPARE SELECTED TILES - MATCH? NO MATCH?
