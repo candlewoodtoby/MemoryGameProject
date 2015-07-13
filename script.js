@@ -1,41 +1,42 @@
 $(function(){
 
-	//STORES TILE VALUES AND FLIPPED TILE LOCATIONS
-	var tileValueArr = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F'];
+	// STORES TILE VALUES AND FLIPPED TILE LOCATIONS
+	var tileValueArr = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
 	var tileLocArr = []; //collects location of click#1 & click#2 tiles
 	var totalTilesFlipped = 0; // counts total tiles clicked per game;
 	var playerTurn = 0
 
-	//Stores Player One Score and Misses
+	// Stores Player One Score and Misses
 	var playerOneScore = 0;
 	var playerOneMisses = 0;
 	var playerOneMatch = 0;
 
-	//Stores Player Two Score and Misses
+	// Stores Player Two Score and Misses
 	var playerTwoScore = 0;
 	var playerTwoMisses = 0;
 	var playerTwoMatch = 0;
 
 
+	// START BUTTON - LISTENS FOR CLICK
 	$('#Start-button').on('click', function(e){
 		e.preventDefault();
 		console.log('player 1 turn');
 		playerTurnNotice('Player 1');
 		newGame('pOne');
-	}); //end #onePlayer-button
+	}); 
 
 
 
-//STARTS NEW GAME
+	// STARTS NEW GAME
 	var newGame = function (taco) {
 		newBoard(tileValueArr, taco);
 	}
 
 
-	//SHUFFLES ARRAY OF TILE VALUES
+	// SHUFFLES TILE VALUES ARRAY
 	var shuffle = function(taco) {
 		var currentIndex = taco.length; //stores # of elements in tileValueArr []
-		var tempVal; // temp stores index value #1 from array
+		var tempVal; // temp stores index value from array
 		var randomIndex; // stores random number generated
 
 		while (0 !== currentIndex) { //#loops not to exceed # elements in tileValueArr []
@@ -46,20 +47,21 @@ $(function(){
 			tempVal = taco[currentIndex];
 			taco[currentIndex] = taco[randomIndex];
 			taco[randomIndex] = tempVal;
-		}; // end while loop
+		}; 
 
 		return taco; //returns shuffled array
-
 	}; // end shuffle function
 
 
-//STARTS NEW BOARD 
+ 	// STARTS NEW BOARD 
 	var newBoard = function (tileArray, player) {
 		shuffle(tileArray); // Shuffles Tile Val Array
 		createTiles(tileArray); // Creates Tiles on Screen
 		listenTileClicks (tileArray, player); // Listens for tile clicks
 	}; //end newBoard function ()
 
+
+	// PLAYER - CHOOSE TWO TILES 
 	var listenTileClicks = function (taco, player) {
 		var flippedTileArr = []; //collects data attribute for each tile clicked
 		var tilesFlipped = 0; // counts tiles clicked per player turn;
@@ -69,8 +71,10 @@ $(function(){
 		$('.cell').on('click', function(e){
 			e.preventDefault();
 
+			//Stores data attribute + location: Click#1 / Click#2
 			var tileVal = $(this).data('tile-value'); //stores data attribute for each tile clicked
 			var tileLoc = $(this); //stores jquery object of clicked tile div
+			
 			this.innerHTML = '<h2>'+tileVal+'</h2>'; //displays clicked tile's data attribute on HTML page
 
 			flippedTileArr.push(tileVal); // pushes clicked tile data attribute into flippedTileArr
@@ -87,32 +91,28 @@ $(function(){
 				tilesFlipped = 0;
 			}; //end if statement
 
-			// if all tiles clicked, ends game
+			// IF ALL TILES ON SCREEN CLICKED:
 			if (totalTilesFlipped === tileValueArr.length) {
-				gameDone(); //updates comment Box: Game is complete
-				playerTurn++
+				gameDone(); // Game Complete - updates comment box:
+				playerTurn++ // Increments playerTurn counter - determines Player 1 turn, Player 2 turn, comparePlayerScore function
 
-				if (playerTurn === 1){ 
-					clearTiles();
-					totalTilesFlipped = 0;
+				if (playerTurn === 1){ //enables Player 2 game 
+					clearTiles(); // clear tiles
+					totalTilesFlipped = 0; // resets Player 1's previous total tiles flipped
 
-					playerTurnNotice('Player 2');
+					playerTurnNotice('Player 2'); // comment board - Player 2's Turn!
 
-					console.log('player 2 turn')
-					newGame('pTwo');
-				}
+					newGame('pTwo'); // Starts Player 2 Game
+				};
 
-				if (playerTurn === 2) {
-					comparePlayerScore();
-				}
-
+				if (playerTurn === 2) { //
+					comparePlayerScore(); //compares Player 1 score + Player 2 score
+				};
 			}; // end if statement
-
-		}); // end ('.cell') event listener
-					
-
+		}); // end ('.cell') event listener			
 	}; //ends listenTileClicks function
 
+	// COMPARES PLAYER 1 SCORE VS PLAYER 2 SCORE
 	var comparePlayerScore = function(){
 		if (playerOneScore > playerTwoScore) {
 			$('.commentBox').html('Player 1 WINS!')
@@ -121,25 +121,25 @@ $(function(){
 		}
 	} //end comparePlayerScore function
 
-//CREATE TILE DIV - display Tiles on Screen
+	// CREATE TILE DIV - display Tiles on Screen
 	var createTiles = function (taco) {
 			var createTileDiv = ''; //creates empty string variable
 
 			//for loop creates tiles <div> and appends to html .gameboard container
 			for (var i=0; i < taco.length; i++){
 				createTileDiv += '<div id="cell_'+ i +'" data-tile-value=" '+tileValueArr[i]+' " class="col-xs-1 cell tile"></div>';
-			} $('.gameBoard').append(createTileDiv); 
+			} $('#gameBoardRow').append(createTileDiv); 
 	} //end createTile function
 
-//ClEARS TILE VALUES FROM BOARD
+	// ClEARS TILE VALUES FROM BOARD
 	var clearTiles = function () {
 		$('.cell').remove();
 	} //end clearTiles function
 
 
-//COMPARE SELECTED TILES - MATCH? NO MATCH?
+	// COMPARE SELECTED TILES - MATCH? NO MATCH?
 	var compareTile = function (taco, taco2, player){
-		if (taco[0] === taco[1]) {
+		if (taco[0] === taco[1]) { //if Tile#1 matches Tile#2 
 				if (player === 'pOne') {
 					commentMissMatch('Match');
 					playerOne('Match');
@@ -160,7 +160,7 @@ $(function(){
 				else if (player === 'pTwo') {
 					commentMissMatch('Miss');	
 					playerTwo('Miss');
-				}; //ends nested if statement
+				}; 
 
 				setTimeout(function(){
 					resetTile(taco2); //calls function to clear tile value if no match occurs
@@ -171,6 +171,7 @@ $(function(){
 
 	}; //end compareTile function
 
+	//UPDATES PLAYER ONE SCORES
 	var playerOne = function(taco) {
 		if (taco === 'Match') {
 			playerOneScore += 150; //counter adds +150 points for every match
@@ -180,12 +181,12 @@ $(function(){
 			playerOneScore -= 25;
 			playerOneMisses += 1;	
 		};
-
 			pScoreUpdates('pOneScore', 'pOne'); //calls function to update Score box
 			pScoreUpdates('pOneMatch', 'pOne'); //calls function to update Match box
 			pScoreUpdates('pOneMiss', 'pOne'); //calls function to update Miss box
 	}; //end PlayerOne function
 
+	//UPDATES PLAYER TWO SCORES
 	var playerTwo = function(taco) {
 		if (taco === 'Match') {
 			playerTwoScore += 150; //counter adds +150 points for every match
@@ -195,11 +196,9 @@ $(function(){
 			playerTwoScore -= 25;
 			playerTwoMisses += 1;	
 		}; //end else if statement
-
 			pScoreUpdates('pTwoScore', 'pTwo'); //calls function to update Score box
 			pScoreUpdates('pTwoMatch', 'pTwo'); //calls function to update Match box
 			pScoreUpdates('pTwoMiss', 'pTwo'); //calls function to update Miss box
-
 	}; //end playerTwo function
 
 	//RESET TILE IF NO MATCH
@@ -209,13 +208,14 @@ $(function(){
 	}; //end resetTile function
 
 
-// COMMENT BOX RESPONSES
 
+
+	//COMMENTS - MATCH! or NO MATCH!
 	var commentMissMatch = function (taco) {
 		if (taco === 'Match') {
-			$('.commentBox').html('Match +150 points');
+			$('.commentBox').html('<h5>Match +150 points</h5>');
 		} else if (taco === 'Miss') {
-			$('.commentBox').html('No Match<br/> -25 points');
+			$('.commentBox').html('<h5>No Match<br/> -25 points</h5>');
 		};
 
 		setTimeout(function(){
@@ -224,41 +224,39 @@ $(function(){
 	}; //end of commentMissMatch
 	
 
-// updates Comment Box - Game Done!
+	// COMMENTS - GAME DONE!
 	var gameDone = function() {
-		$('.commentBox').html('Nice Job! Game Complete!!');
+		$('.commentBox').html('<h5>Nice Job! Game Complete!!</h5>');
 	}; //End gameDone function
 
 	var playerTurnNotice = function(taco) {
-		$('.commentBox').html('<h4>'+ taco + ' Your Turn. Match Tiles</h4>');
+		$('.commentBox').html('<h4>'+ taco + ' START!</h4>');
 
 		setTimeout(function(){
 			$('.commentBox').html("")
 		}, 5000);
-	}
+	}; //End playerTurnNotice function
 
-// Player Score Displays - ScoreBoard and CommentBox
+	// PLAYER SCORE UPDATES - ScoreBoard and CommentBox
 	var pScoreUpdates = function(taco, taco2) {
 		if (taco2 === 'pOne') {
 			if (taco==='pOneScore') {
-				$('.pOneScore').html('Score: <br/>'+ playerOneScore);
+				$('.pOneScore').html('<h5>Score<br/>'+ playerOneScore +'</h5>');
 			} else if (taco==='pOneMiss') {
-				$('.pOneMiss').html('Miss: <br/>' + playerOneMisses); 
+				$('.pOneMiss').html('<h5>Miss<br/>' + playerOneMisses +'</h5>'); 
 			} else if (taco==='pOneMatch') {
-				$('.pOneMatch').html('Match: <br/>' + playerOneMatch); 
+				$('.pOneMatch').html('<h5>Match<br/>' + playerOneMatch +'</h5>'); 
 			}  //ends nested if statement
 
 		} else if (taco2 === 'pTwo') {
 			if (taco==='pTwoScore') {
-				$('.pTwoScore').html('Score: <br/>'+ playerTwoScore);
+				$('.pTwoScore').html('<h5>Score<br/>'+ playerTwoScore +'</h5>');
 			} else if (taco==='pTwoMiss') {
-				$('.pTwoMiss').html('Miss: <br/>' + playerTwoMisses); 
+				$('.pTwoMiss').html('<h5>Miss<br/>' + playerTwoMisses +'</h5>'); 
 			} else if (taco==='pTwoMatch') {
-				$('.pTwoMatch').html('Match: <br/>' + playerTwoMatch); 
+				$('.pTwoMatch').html('<h5>Match<br/>' + playerTwoMatch +'<h/5>'); 
 			}  //ends nested if statement
-
 		}; //ends orig if statement
-
 	}; //end of pScoreUpdates function
 
 }); //end of main jquery function

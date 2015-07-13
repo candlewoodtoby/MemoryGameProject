@@ -11,50 +11,59 @@
 
 </head>
 <body>
-	<div class="container title">
-		<h1>MEMORY CHALLENGE</h1>
-	</div>
-	<div class="container scoreBoard">
-		<div class="row">
-			<div class="col-xs-1 pOne">Player <br/>1</div>
-			<div class="col-xs-1 pOneScore">Score: <br/>0</div>
-			<div class="col-xs-1 pOneMatch">Match: <br/>0</div>
-			<div class="col-xs-1 pOneMiss">Miss: <br/>0</div>
-
-			<div class="col-xs-4 commentBox">Comment Box:</div>
-			
-			<div class="col-xs-1 pTwo">Player <br/>2</div>
-			<div class="col-xs-1 pTwoScore">Score: <br/>0</div>
-			<div class="col-xs-1 pTwoMatch">Match: <br/>0</div>
-			<div class="col-xs-1 pTwoMiss">Miss: <br/>0</div>
-
+	<div class="container main">
+		<div class="container title">
+			<div class="row">
+				<h1>MEMORY CHALLENGE</h1>
+			</div>
 		</div>
-	</div>
+		<div class="container scoreBoard">
+			<div class="row" id="scoreBoardRow">
+				<div class="col-xs-1 pOne"><h5>Player <br/>1</h5></div>
+				<div class="col-xs-1 pOneScore"><h5>Score<br/>0</h5></div>
+				<div class="col-xs-1 pOneMatch"><h5>Match<br/>0</h5></div>
+				<div class="col-xs-1 pOneMiss"><h5>Miss<br/>0</h5></div>
 
-	<div class="container gameBoard">
-
-	</div> <!--end container gameboard -->
-
-	<div class="container controlPanel">
-		<div class="row">
-			<div class="col-xs-4 buttonsPlay">
-
-				<form class="form" id="Start-button">
-					<input type="submit" class="btn btn-default" value="START">
-				</form>
-<!-- 				<form class="form" id="twoPlayer-button">
-					<input type="submit" class="btn btn-default" value="Two Player">
-				</form> -->
-<!-- 				<form id="reset-button">
-					<input type="submit" value="reset">
-				</form> -->
-
+				<div class="col-xs-4 commentBox"></div>
+				
+				<div class="col-xs-1 pTwo"><h5>Player <br/>2</h5></div>
+				<div class="col-xs-1 pTwoScore"><h5>Score<br/>0</h5></div>
+				<div class="col-xs-1 pTwoMatch"><h5>Match<br/>0</h5></div>
+				<div class="col-xs-1 pTwoMiss"><h5>Miss<br/>0</h5></div>
 
 			</div>
-			<div class="col-xs-4 col-xs-offset-2 instructPlay">How to Play</div>
-		</div> <!--end row -->
+		</div>
 
-	</div> <!--end container controlPanel-->
+		<div class="container gameBoard">
+			<div class="row" id="gameBoardRow">
+				
+			</div>
+
+		</div> <!--end container gameboard -->
+
+		<div class="container controlPanel">
+			<div class="row" id="bottomRow">
+				<div class="col-xs-4 buttonsPlay">
+					<p><b>Press Start to Play</b></p>
+					<form class="form" id="Start-button">
+						<input type="submit" class="btn btn-default" value="START">
+					</form>
+
+				</div>
+				<div class="col-xs-4 col-xs-offset-2 instructPlay">
+					<ul><b>
+						<li>Select 2 matching tiles</li>
+						<li>Match: 150 points</li>
+						<li>Miss: -25 point penalty</li>
+						<li>Highest Score Wins</li>
+						</b>
+					</ul>
+
+				</div>
+			</div> <!--end row -->
+
+		</div> <!--end container controlPanel-->
+	</div>
 </body>
 
 </html>
