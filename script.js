@@ -97,16 +97,20 @@ $(function(){
 				playerTurn++ // Increments playerTurn counter - determines Player 1 turn, Player 2 turn, comparePlayerScore function
 
 				if (playerTurn === 1){ //enables Player 2 game 
+					setTimeout(function(){ 
 					clearTiles(); // clear tiles
 					totalTilesFlipped = 0; // resets Player 1's previous total tiles flipped
 
 					playerTurnNotice('Player 2'); // comment board - Player 2's Turn!
 
 					newGame('pTwo'); // Starts Player 2 Game
+					}, 2000); //end setTimeout function
 				};
 
 				if (playerTurn === 2) { //
+					setTimeout(function() {
 					comparePlayerScore(); //compares Player 1 score + Player 2 score
+					}, 1750); //end setTimeout function
 				};
 			}; // end if statement
 		}); // end ('.cell') event listener			
@@ -115,9 +119,9 @@ $(function(){
 	// COMPARES PLAYER 1 SCORE VS PLAYER 2 SCORE
 	var comparePlayerScore = function(){
 		if (playerOneScore > playerTwoScore) {
-			$('.commentBox').html('Player 1 WINS!')
+			$('.commentBox').html('<h4>Player 1 WINS!</h4>')
 		} else {
-		 	$('.commentBox').html('Player 2 WINS!');
+		 	$('.commentBox').html('<h4>Player 2 WINS!</h4>');
 		}
 	} //end comparePlayerScore function
 
