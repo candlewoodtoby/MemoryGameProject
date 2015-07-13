@@ -125,6 +125,7 @@ $(function(){
 		}
 	} //end comparePlayerScore function
 
+
 	// CREATE TILE DIV - display Tiles on Screen
 	var createTiles = function (taco) {
 			var createTileDiv = ''; //creates empty string variable
@@ -134,6 +135,7 @@ $(function(){
 				createTileDiv += '<div id="cell_'+ i +'" data-tile-value=" '+tileValueArr[i]+' " class="col-xs-1 cell tile"></div>';
 			} $('#gameBoardRow').append(createTileDiv); 
 	} //end createTile function
+
 
 	// ClEARS TILE VALUES FROM BOARD
 	var clearTiles = function () {
@@ -175,7 +177,8 @@ $(function(){
 
 	}; //end compareTile function
 
-	//UPDATES PLAYER ONE SCORES
+
+	//UPDATES - PLAYER ONE SCORES
 	var playerOne = function(taco) {
 		if (taco === 'Match') {
 			playerOneScore += 150; //counter adds +150 points for every match
@@ -190,7 +193,8 @@ $(function(){
 			pScoreUpdates('pOneMiss', 'pOne'); //calls function to update Miss box
 	}; //end PlayerOne function
 
-	//UPDATES PLAYER TWO SCORES
+
+	//UPDATES - PLAYER TWO SCORES
 	var playerTwo = function(taco) {
 		if (taco === 'Match') {
 			playerTwoScore += 150; //counter adds +150 points for every match
@@ -205,16 +209,16 @@ $(function(){
 			pScoreUpdates('pTwoMiss', 'pTwo'); //calls function to update Miss box
 	}; //end playerTwo function
 
-	//RESET TILE IF NO MATCH
+
+
+	// RESET TILE IF NO MATCH
 	var resetTile = function(taco) {
 			taco[0][0].innerHTML = ""; //inserts empty string to clear tile
 			taco[1][0].innerHTML = ""; //inserts empty string to clear tile
 	}; //end resetTile function
 
 
-
-
-	//COMMENTS - MATCH! or NO MATCH!
+	// COMMENTS - MATCH! or NO MATCH!
 	var commentMissMatch = function (taco) {
 		if (taco === 'Match') {
 			$('.commentBox').html('<h4>Match +150 points</h4>');
@@ -233,6 +237,8 @@ $(function(){
 		$('.commentBox').html('<h4>Nice Job! Game Complete!!</h4>');
 	}; //End gameDone function
 
+
+	// COMMENTS - PLAYER'S TURN TO GO!
 	var playerTurnNotice = function(taco) {
 		$('.commentBox').html('<h4 id="playerStartComment">'+ taco + ' START!</h4>');
 
@@ -240,6 +246,7 @@ $(function(){
 			$('.commentBox').html("")
 		}, 5000);
 	}; //End playerTurnNotice function
+
 
 	// PLAYER SCORE UPDATES - ScoreBoard and CommentBox
 	var pScoreUpdates = function(taco, taco2) {
