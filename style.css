@@ -18,7 +18,7 @@
 	border-color: orange;
 	border-style: solid;
 	border-width: 1px;
-	height: 54px;
+	height: 58px;
 	text-align: center;
 	padding-top: 2px;
 }
@@ -39,7 +39,9 @@
 	border-width: 1px;*/
 	height: 100px;
 	padding-top: 15px;
-	background-color: #FFD58E;
+	background-color: #FFA730;
+	margin-left: 10px;
+	margin-top: 10px;
 
 }
 
@@ -84,9 +86,6 @@
 	background-color: ;
 }
 
-ul {
-	list-style-type: none;
-}
 
 .instructPlay {
 	padding: 8px;
@@ -96,6 +95,22 @@ ul {
 	border-style: double;
 	border-color: black;
 	border-width: 5px;
+	border-radius: 40px;
 	width: 800px;
-	height: 690px;
+	height: 700px;
+	background-color: #F5F2DB;
+	margin-top: 10px;
 }
+
+#playerStartComment {
+	margin-top: 20px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+li {
+	margin: 3px 0 3px 0;
+}
+

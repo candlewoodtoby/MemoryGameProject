@@ -213,9 +213,9 @@ $(function(){
 	//COMMENTS - MATCH! or NO MATCH!
 	var commentMissMatch = function (taco) {
 		if (taco === 'Match') {
-			$('.commentBox').html('<h5>Match +150 points</h5>');
+			$('.commentBox').html('<h4>Match +150 points</h4>');
 		} else if (taco === 'Miss') {
-			$('.commentBox').html('<h5>No Match<br/> -25 points</h5>');
+			$('.commentBox').html('<h4>No Match<br/> -25 points</h4>');
 		};
 
 		setTimeout(function(){
@@ -226,11 +226,11 @@ $(function(){
 
 	// COMMENTS - GAME DONE!
 	var gameDone = function() {
-		$('.commentBox').html('<h5>Nice Job! Game Complete!!</h5>');
+		$('.commentBox').html('<h4>Nice Job! Game Complete!!</h4>');
 	}; //End gameDone function
 
 	var playerTurnNotice = function(taco) {
-		$('.commentBox').html('<h4>'+ taco + ' START!</h4>');
+		$('.commentBox').html('<h4 id="playerStartComment">'+ taco + ' START!</h4>');
 
 		setTimeout(function(){
 			$('.commentBox').html("")
